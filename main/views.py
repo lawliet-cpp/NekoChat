@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import redis
+from .models import Room
 import json
 import re
 def index(request):
@@ -7,16 +7,7 @@ def index(request):
 
 def room(request,room_name):
     username = request.GET.get("username","Anonymous")
-    r = redis.StrictRedis(host="localhost", port=6379, charset="utf-8", decode_responses=True)
-    messages =r.smembers(room_name)
-    results = []  
-
-    for message in messages:
-        content,username = message.split("_")
-        message = {
-            "username":username,
-            "content":content
-        }
-        results.append(message)
+    room,created = Room.objects.get_or_create(name=room_name)
+    messages = room.messages.all()
    
-    return render(request,"room.html",{"username":username,"room_name":room_name,"messages":results})
+    return render(request,"room.html",{"username":username,"room_name":room_name,"messages":messages})
