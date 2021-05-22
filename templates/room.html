@@ -62,7 +62,7 @@
             const userName = JSON.parse(document.getElementById('json-username').textContent);
 
             const chatSocket = new WebSocket(
-               "ws://192.168.1.12:8000/ws/" +roomName
+               "wss://nekochat-1.onizuka341.repl.co/ws/" +roomName
             );
 
             chatSocket.onmessage = function(e) {
@@ -82,7 +82,7 @@
             chatSocket.onclose = function(e) {
                 console.log('The socket close unexpectadly');
             };
-
+            var input = document.getElementById("chat-message-input");
             input.addEventListener("keyup", function(event) {
                  if (event.keyCode === 13) {
    
