@@ -83,6 +83,16 @@
                 console.log('The socket close unexpectadly');
             };
 
+            input.addEventListener("keyup", function(event) {
+                 if (event.keyCode === 13) {
+   
+                  event.preventDefault();
+    
+                 document.getElementById("chat-message-submit").click();
+            }
+       }); 
+  
+ 
             document.querySelector('#chat-message-submit').onclick = function(e) {
                 const messageInputDom = document.querySelector('#chat-message-input');
                 const message = messageInputDom.value;
